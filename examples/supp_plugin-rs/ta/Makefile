@@ -40,7 +40,7 @@ OUT_DIR := $(CURDIR)/target/$(TARGET)/release
 all: ta strip sign
 
 ta:
-	@xargo build --target $(TARGET) --release --verbose
+	@cargo build -Z build-std=std,panic_abort --target $(TARGET) --release
 
 strip:
 	@$(OBJCOPY) --strip-unneeded $(OUT_DIR)/ta $(OUT_DIR)/stripped_ta

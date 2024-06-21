@@ -40,7 +40,7 @@ fi
 cargo --version >/dev/null
 
 # install Xargo
-cargo +stable install xargo
+# cargo +stable install xargo
 
 ########################################################
 # initialize submodules: optee_os / optee_client / build

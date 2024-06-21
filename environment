@@ -17,7 +17,10 @@
 
 export PATH=$PATH:$HOME/.cargo/bin
 export RUST_TARGET_PATH="$(pwd)"
-export RUST_COMPILER_RT_ROOT=$RUST_TARGET_PATH/rust/rust/src/llvm-project/compiler-rt
+#export RUST_COMPILER_RT_ROOT=$RUST_TARGET_PATH/rust/rust/src/llvm-project/compiler-rt
+# for cargo build-std, set the Rust src path
+export __CARGO_TESTS_ONLY_SRC_ROOT="$(pwd)/rust/rust"
+
 if [ -z "$OPTEE_DIR" ]
 then
   export OPTEE_DIR="$(pwd)/optee"
