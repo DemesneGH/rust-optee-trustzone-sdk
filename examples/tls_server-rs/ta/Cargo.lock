@@ -72,11 +72,6 @@ name = "libc"
 version = "0.2.153"
 
 [[package]]
-name = "libc"
-version = "0.2.153"
-source = "git+https://github.com/DemesneGH/libc.git?branch=optee#4fa30318ed3175f6ebe22da8f167f9f9b34567c3"
-
-[[package]]
 name = "log"
 version = "0.4.8"
 source = "git+https://github.com/veracruz-project/log.git?branch=veracruz#64f2e08980af31e25edb5b699f195bb86a8990dd"
@@ -99,7 +94,7 @@ version = "0.2.0"
 dependencies = [
  "bitflags",
  "hex",
- "libc 0.2.153 (git+https://github.com/DemesneGH/libc.git?branch=optee)",
+ "libc 0.2.153",
  "optee-utee-macros",
  "optee-utee-sys",
  "uuid",

@@ -25,7 +25,7 @@ description = "An example of Rust OP-TEE TrustZone SDK."
 edition = "2018"
 
 [dependencies]
-libc = { path = "../../../rust/libc" }
+libc = { path = "../../../rust/libc", version = "=0.2.153" }
 proto = { path = "../proto" }
 optee-utee-sys = { path = "../../../optee-utee/optee-utee-sys" }
 optee-utee = { path = "../../../optee-utee" }
@@ -41,6 +41,6 @@ opt-level = 1
 
 [patch."https://github.com/veracruz-project/rust-optee-trustzone-sdk.git"]
 optee-utee = { path = "../../../optee-utee" }
-libc = { path = "../../../rust/libc" }
+libc = { path = "../../../rust/libc", version = "=0.2.153" }
 [patch."https://github.com/veracruz-project/ring.git"]
 optee-utee = { path = "../../../optee-utee" }
