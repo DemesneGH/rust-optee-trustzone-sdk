@@ -33,16 +33,24 @@ jobs:
        - name: Setting up $HOME
          run: |
            cp /root/.bashrc $HOME/.bashrc
-       - name: Building
+       - name: Build aarch64 host and TA
          run: |
-           export CARGO_NET_GIT_FETCH_WITH_CLI=true &&
            ./setup.sh &&
            source environment &&
            make optee &&
            make examples
-       - name: Run tests and examples
+       - name: Run tests for aarch64 TA and host
          run: |
-           cd ci && ./ci.sh
+           (cd ci && ./ci.sh)
+       - name: Build arm32 TA
+         run: |
+           export ARCH=arm &&
+           source environment &&
+           make optee-client-clean && make optee &&
+           (for dir in $(ls examples); do make -C examples/$dir/ta; done)
+       - name: Run tests for arm32 TA and aarch64 host
+         run: |
+           (cd ci && ./ci.sh)
    build-utee-teec:
     runs-on: ubuntu-latest
     container: yuanz0/teaclave-trustzone-sdk:ubuntu-24.04

@@ -24,7 +24,7 @@ NEED_EXPANDED_MEM=true
 source setup.sh
 
 # Copy TA and host binary
-cp ../examples/tls_server-rs/ta/target/aarch64-unknown-optee/release/*.ta shared
+cp ../examples/tls_server-rs/ta/target/$1/release/*.ta shared
 cp ../examples/tls_server-rs/host/target/aarch64-unknown-linux-gnu/release/tls_server-rs shared
 
 # Run script specific commands in QEMU

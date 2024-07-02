@@ -18,7 +18,7 @@
 use proto;
 use std::env;
 use std::fs::File;
-use std::io::Write;
+use std::io::{BufRead, BufReader, Write};
 use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
@@ -42,21 +42,61 @@ fn main() -> std::io::Result<()> {
 }};",
         time_low, time_mid, time_hi_and_version, clock_seq_and_node
     )?;
-    let optee_os_dir = env::var("OPTEE_OS_DIR").unwrap_or("../../../optee/optee_os".to_string());
-    let search_path = match env::var("ARCH") {
+
+    let mut aarch64_flag = true;
+    match env::var("ARCH") {
         Ok(ref v) if v == "arm" => {
-            File::create(out.join("ta.lds"))?.write_all(include_bytes!("ta_arm.lds"))?;
-            Path::new(&optee_os_dir).join("out/arm/export-ta_arm32/lib")
-        }
-        _ => {
-            File::create(out.join("ta.lds"))?.write_all(include_bytes!("ta_aarch64.lds"))?;
-            Path::new(&optee_os_dir).join("out/arm/export-ta_arm64/lib")
-        }
+            //println!("cargo:rustc-link-arg=--no-warn-mismatch");
+            aarch64_flag = false;
+        },
+        _ => {}
     };
+
+    let optee_os_dir = env::var("TA_DEV_KIT_DIR").unwrap();
+    let search_path = Path::new(&optee_os_dir).join("lib");
+
+    let optee_os_path = &PathBuf::from(optee_os_dir.clone());
+    let mut ta_lds = File::create(out.join("ta.lds"))?;
+    let f = File::open(optee_os_path.join("src/ta.ld.S"))?;
+    let f = BufReader::new(f);
+
+    for line in f.lines() {
+        let l = line?;
+
+        if aarch64_flag {
+            if l.starts_with('#') ||
+                l == "OUTPUT_FORMAT(\"elf32-littlearm\")" ||
+                l == "OUTPUT_ARCH(arm)" {
+                continue;
+            }
+        } else {
+            if l.starts_with('#') ||
+                l == "OUTPUT_FORMAT(\"elf64-littleaarch64\")" ||
+                l == "OUTPUT_ARCH(aarch64)" {
+                continue;
+            }
+        }
+
+        if l == "\t. = ALIGN(4096);" {
+            write!(ta_lds, "\t. = ALIGN(65536);\n")?;
+        } else {
+            write!(ta_lds, "{}\n", l)?;
+        }
+    }
+
     println!("cargo:rustc-link-search={}", out.display());
     println!("cargo:rerun-if-changed=ta.lds");
 
     println!("cargo:rustc-link-search={}", search_path.display());
     println!("cargo:rustc-link-lib=static=utee");
+    // println!("cargo:rustc-link-arg=-Tta.lds");
+    // println!("cargo:rustc-link-arg=-e__ta_entry");
+    // println!("cargo:rustc-link-arg=-pie");
+    // println!("cargo:rustc-link-arg=-Os");
+    // println!("cargo:rustc-link-arg=--sort-section=alignment");
+
+    let mut dyn_list = File::create(out.join("dyn_list"))?;
+    write!(dyn_list, "{{ __elf_phdr_info; trace_ext_prefix; trace_level; ta_head; }};\n")?;
+    println!("cargo:rustc-link-arg=--dynamic-list=dyn_list");
     Ok(())
 }

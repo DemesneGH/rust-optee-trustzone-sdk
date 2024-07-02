@@ -27,9 +27,9 @@ export OPTEE_CLIENT_DIR="$OPTEE_DIR/optee_client/out"
 export OPTEE_CLIENT_INCLUDE="$OPTEE_DIR/optee_client/out/export/usr/include"
 if [ "$ARCH" = "arm" ]
 then
-  echo "WARNING: ARM32 is not supported in this release, please use v0.2.0"
   # use our toolchain as the first choice
   export PATH=$OPTEE_DIR/toolchains/aarch32/bin:$PATH
+  export TA_DEV_KIT_DIR="$OPTEE_OS_DIR/out/arm/export-ta_arm32"
   export VENDOR="qemu.mk"
   export OPTEE_OS_INCLUDE="$OPTEE_DIR/optee_os/out/arm/export-ta_arm32/include"
   export CC=$OPTEE_DIR/toolchains/aarch32/bin/arm-linux-gnueabihf-gcc
@@ -38,6 +38,7 @@ else
   unset ARCH
   # use our toolchain as the first choice
   export PATH=$OPTEE_DIR/toolchains/aarch64/bin:$PATH
+  export TA_DEV_KIT_DIR="$OPTEE_OS_DIR/out/arm/export-ta_arm64"
   export VENDOR="qemu_v8.mk"
   export OPTEE_OS_INCLUDE="$OPTEE_DIR/optee_os/out/arm/export-ta_arm64/include"
   export CC=$OPTEE_DIR/toolchains/aarch64/bin/aarch64-linux-gnu-gcc

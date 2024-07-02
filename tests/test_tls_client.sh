@@ -24,7 +24,7 @@ NEED_EXPANDED_MEM=true
 source setup.sh
 
 # Copy TA and host binary
-cp ../examples/tls_client-rs/ta/target/aarch64-unknown-optee/release/*.ta shared
+cp ../examples/tls_client-rs/ta/target/$1/release/*.ta shared
 cp ../examples/tls_client-rs/host/target/aarch64-unknown-linux-gnu/release/tls_client-rs shared
 
 # Run script specific commands in QEMU
@@ -41,4 +41,4 @@ run_in_qemu "^C"
 	false
 }
 
-rm screenlog.0
+#rm screenlog.0

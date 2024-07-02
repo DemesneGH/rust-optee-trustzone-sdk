@@ -21,25 +21,32 @@ set -xe
 
 pushd ../tests
 
-./test_hello_world.sh
-./test_random.sh
-./test_secure_storage.sh
-./test_aes.sh
-./test_serde.sh
-./test_hotp.sh
-./test_acipher.sh
-./test_big_int.sh
-./test_diffie_hellman.sh
-./test_digest.sh
-./test_authentication.sh
-./test_time.sh
-./test_tcp_client.sh
-./test_udp_socket.sh
-./test_message_passing_interface.sh
-./test_signature_verification.sh
-./test_supp_plugin.sh
-./test_tls_client.sh
-./test_tls_server.sh
+if [ "$ARCH" = "arm" ]
+then
+    TA_ARCH=arm-unknown-optee
+else
+    TA_ARCH=aarch64-unknown-optee
+fi
+
+./test_hello_world.sh $TA_ARCH
+./test_random.sh $TA_ARCH
+./test_secure_storage.sh $TA_ARCH
+./test_aes.sh $TA_ARCH
+./test_serde.sh $TA_ARCH
+./test_hotp.sh $TA_ARCH
+./test_acipher.sh $TA_ARCH
+./test_big_int.sh $TA_ARCH
+./test_diffie_hellman.sh $TA_ARCH
+./test_digest.sh $TA_ARCH
+./test_authentication.sh $TA_ARCH
+./test_time.sh $TA_ARCH
+./test_tcp_client.sh $TA_ARCH
+./test_udp_socket.sh $TA_ARCH
+./test_message_passing_interface.sh $TA_ARCH
+./test_signature_verification.sh $TA_ARCH
+./test_supp_plugin.sh $TA_ARCH
+./test_tls_client.sh $TA_ARCH
+./test_tls_server.sh $TA_ARCH
 echo "All tests passed!"
 ./cleanup_all.sh
 
