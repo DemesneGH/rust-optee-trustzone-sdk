@@ -35,12 +35,8 @@ else
 	source "$HOME/.cargo/env"
 fi
 
-# Ensure the toolchain, components, and targets we've specified in
-# rust-toolchain.toml are ready to go. Since that file sets rustup's default
-# toolchain for the entire directory, all we need to do is run any
-# rustup-wrapped command to trigger installation. We've arbitrarily chosen
-# "cargo --version" since it has no other effect.
-cargo --version >/dev/null
+# install the Rust toolchain from rust-toolchain.toml
+rustup toolchain install
 
 ##########################################
 # install toolchain
