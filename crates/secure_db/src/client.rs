@@ -15,7 +15,9 @@
 // specific language governing permissions and limitations
 // under the License.
 
-use crate::secure_db::SecureStorageDb;
+#![allow(dead_code)]
+
+use crate::SecureStorageDb;
 use crate::Storable;
 use anyhow::{anyhow, Result};
 use std::{

@@ -15,7 +15,9 @@
 // specific language governing permissions and limitations
 // under the License.
 
-use crate::secure_db::{
+#![allow(dead_code)]
+
+use crate::{
     delete_from_secure_storage, load_from_secure_storage, save_in_secure_storage,
 };
 use anyhow::{bail, ensure, Result};

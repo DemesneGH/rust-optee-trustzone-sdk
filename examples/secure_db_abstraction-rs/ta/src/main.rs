@@ -17,8 +17,6 @@
 
 #![no_main]
 
-mod secure_db;
-
 extern crate alloc;
 
 use alloc::vec;
