@@ -1,0 +1,32 @@
+name-template: "v$NEXT_PATCH_VERSION"
+tag-template: "v$NEXT_PATCH_VERSION"
+
+categories:
+  - title: "🚀 Features"
+    labels:
+      - "feature"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "bug"
+  - title: "📝 Documentation"
+    labels:
+      - "docs"
+  - title: "📦 Dependencies"
+    labels:
+      - "dependencies"
+  - title: "⚙️ Refactoring"
+    labels:
+      - "refactor"
+  - title: "🔧 Build / CI"
+    labels:
+      - "build"
+      - "ci"
+
+change-template: "- $TITLE (#$NUMBER) by @$AUTHOR"
+
+template: |
+  ## What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/$OWNER/$REPO/compare/$PREVIOUS_TAG...$NEXT_PATCH_VERSION
