@@ -32,7 +32,7 @@ jobs:
         uses: release-drafter/release-drafter@v5
         with:
           version: ${{ github.event.inputs.release_version }}
-          name-template: "v${{ github.event.inputs.release_version }}"
-          tag-template: "v${{ github.event.inputs.release_version }}"
+          name: "v${{ github.event.inputs.release_version }}"
+          tag: "v${{ github.event.inputs.release_version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
