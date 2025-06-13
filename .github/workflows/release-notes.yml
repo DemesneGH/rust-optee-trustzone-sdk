@@ -1,0 +1,21 @@
+name: Draft Release Notes
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Version to release (e.g., 0.5.0)'
+        required: true
+
+jobs:
+  draft_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Release Drafter
+        uses: release-drafter/release-drafter@v5
+        with:
+          version: ${{ github.event.inputs.release_version }}
+          name-template: "v${{ github.event.inputs.release_version }}"
+          tag-template: "v${{ github.event.inputs.release_version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
