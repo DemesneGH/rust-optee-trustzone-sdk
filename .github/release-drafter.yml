@@ -22,15 +22,9 @@ categories:
     labels:
       - "feature"
       - 'enhancement'
-  - title: "🐛 Bug Fixes"
+  - title: "📚 Examples"
     labels:
-      - "bug"
-  - title: "📝 Documentation"
-    labels:
-      - "documentation"
-  - title: "📦 Dependencies"
-    labels:
-      - "dependencies"
+      - "example"
   - title: "⚙️ Refactoring"
     labels:
       - "refactor"
@@ -38,6 +32,15 @@ categories:
     labels:
       - "build"
       - "ci"
+  - title: "📦 Dependencies"
+    labels:
+      - "dependencies"
+  - title: "🐛 Bug Fixes"
+    labels:
+      - "bug"
+  - title: "📝 Documentation"
+    labels:
+      - "documentation"
 
 change-template: "- $TITLE (#$NUMBER) by @$AUTHOR"
 
