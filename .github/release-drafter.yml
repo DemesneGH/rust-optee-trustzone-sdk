@@ -42,6 +42,11 @@ categories:
     labels:
       - "documentation"
 
+contributors:
+  title: "🎉 New Contributors"
+  include: "first-time"
+  template: "- @$LOGIN"
+
 change-template: "- $TITLE (#$NUMBER) by @$AUTHOR"
 
 template: |
