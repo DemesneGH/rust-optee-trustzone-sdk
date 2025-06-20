@@ -56,5 +56,5 @@ template: |
 
   $CONTRIBUTORS
 
-  **Full Changelog**: https://github.com/apache/incubator-teaclave-trustzone-sdk/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
+  **Full Changelog**: https://github.com/apache/incubator-teaclave-trustzone-sdk/compare/$PREVIOUS_TAG...$TAG
 
