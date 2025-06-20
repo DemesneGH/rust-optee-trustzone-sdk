@@ -23,6 +23,9 @@ on:
       release_version:
         description: 'Version to release (e.g., 0.5.0)'
         required: true
+      previous_tag:
+        description: 'Previous release tag (e.g., v0.4.0)'
+        required: true
 
 jobs:
   draft_release:
@@ -35,5 +38,6 @@ jobs:
         uses: release-drafter/release-drafter@v6
         with:
           version: ${{ github.event.inputs.release_version }}
+          from-tag: ${{ github.event.inputs.previous_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
