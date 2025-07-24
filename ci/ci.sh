@@ -31,6 +31,7 @@ if [ "$STD" ]; then
     ./test_tls_server.sh
     ./test_eth_wallet.sh
     ./test_secure_db_abstraction.sh
+    ./test_ring_ecdsa.sh
 else
     ./test_mnist_rs.sh
     ./test_build_with_optee_utee_sys.sh
