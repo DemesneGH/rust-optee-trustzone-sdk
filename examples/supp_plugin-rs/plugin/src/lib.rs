@@ -29,14 +29,15 @@ fn invoke(params: &mut PluginParameters) -> optee_teec::Result<()> {
     println!("*plugin*: invoke");
     match PluginCommand::from(params.cmd) {
         PluginCommand::Print => {
+            let input = params.get_input_slice();
             println!(
                 "*plugin*: receive value: {:?} length {:?}",
-                params.inout,
-                params.inout.len()
+                input,
+                input.len()
             );
 
             let send_slice: [u8; 9] = [0x40; 9];
-            params.set_buf_from_slice(&send_slice)?;
+            params.set_output_from_slice(&send_slice)?;
             println!(
                 "*plugin*: send value: {:?} length {:?} to ta",
                 send_slice,

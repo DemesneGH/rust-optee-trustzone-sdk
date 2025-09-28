@@ -42,7 +42,7 @@ pub struct PluginMethod {
 pub struct PluginParameters<'a> {
     pub cmd: u32,
     pub sub_cmd: u32,
-    pub inout: &'a mut [u8],
+    inout: &'a mut [u8],
     outlen: usize,
 }
 impl<'a> PluginParameters<'a> {
@@ -54,9 +54,20 @@ impl<'a> PluginParameters<'a> {
             outlen: 0_usize,
         }
     }
-    pub fn set_buf_from_slice(&mut self, sendslice: &[u8]) -> Result<()> {
+
+    /// Returns the current input data as a slice.
+    pub fn get_input_slice(&self) -> &[u8] {
+        self.inout
+    }
+
+    /// Sets the output buffer content from a slice.
+    ///
+    /// # Errors
+    /// Returns `ErrorKind::ShortBuffer` if the buffer is too small to hold the data.
+    /// In this case, `outlen` is set to the required size.
+    pub fn set_output_from_slice(&mut self, sendslice: &[u8]) -> Result<()> {
         if self.inout.len() < sendslice.len() {
-            println!("Overflow: Input length is less than output length");
+            println!("Output buffer too small: required {}, available {}", sendslice.len(), self.inout.len());
             self.outlen = sendslice.len();
             return Err(Error::new(ErrorKind::ShortBuffer));
         }
@@ -64,9 +75,8 @@ impl<'a> PluginParameters<'a> {
         self.inout[..self.outlen].copy_from_slice(sendslice);
         Ok(())
     }
-    pub fn get_out_slice(&self) -> &[u8] {
-        &self.inout[..self.outlen]
-    }
+
+    /// Returns the length of the output data.
     pub fn get_out_len(&self) -> usize {
         self.outlen
     }

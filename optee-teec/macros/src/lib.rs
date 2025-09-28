@@ -148,7 +148,7 @@ pub fn plugin_invoke(_args: TokenStream, input: TokenStream) -> TokenStream {
         /// - If the output length exceeds `in_len`, it will be rejected and a short buffer
         ///   error returned, with the required `out_len` set
         /// - Input and output share the same buffer, so overlap is intentional and safely
-        ///   handled by [`PluginParameters::set_buf_from_slice`] when `out_len <= in_len`
+        ///   handled by [`PluginParameters::set_output_from_slice`] when `out_len <= in_len`
         /// - If no output is set for a success call, `out_len` will be `0`
         ///
         /// ## Usage Scenarios
@@ -157,7 +157,7 @@ pub fn plugin_invoke(_args: TokenStream, input: TokenStream) -> TokenStream {
         ///   the plugin writes up to `in_len` bytes and updates `*out_len`; if `out_len > in_len`,
         ///   it is rejected with a short buffer error
         /// - **Buffer overflow attempt**: if inner logic (developer code) tries to return
-        ///   more bytes than `in_len` → rejected by `set_buf_from_slice`, error returned with required `out_len`
+        ///   more bytes than `in_len` → rejected by `set_output_from_slice`, error returned with required `out_len`
         /// - **Invalid pointers**: null pointers are checked, but other invalid cases of pointers
         ///   such as dangling, misaligned, or read-only pointers will cause undefined behavior 
         ///   and must be prevented by the caller
