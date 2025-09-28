@@ -57,7 +57,8 @@ impl<'a> PluginParameters<'a> {
     pub fn set_buf_from_slice(&mut self, sendslice: &[u8]) -> Result<()> {
         if self.inout.len() < sendslice.len() {
             println!("Overflow: Input length is less than output length");
-            return Err(Error::new(ErrorKind::Security));
+            self.outlen = sendslice.len();
+            return Err(Error::new(ErrorKind::ShortBuffer));
         }
         self.outlen = sendslice.len();
         self.inout[..self.outlen].copy_from_slice(sendslice);
@@ -65,5 +66,8 @@ impl<'a> PluginParameters<'a> {
     }
     pub fn get_out_slice(&self) -> &[u8] {
         &self.inout[..self.outlen]
+    }
+    pub fn get_out_len(&self) -> usize {
+        self.outlen
     }
 }
